@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="Pivot">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="DateGen"/>
+        <xs:element minOccurs="0" ref="DateEnvoi"/>
+        <xs:element ref="IdEmetteur"/>
+        <xs:element ref="PeriodeEch"/>
+        <xs:element minOccurs="0" ref="DateArrete"/>
+        <xs:element ref="LstDelegataires"/>
+      </xs:sequence>
+      <xs:attribute name="type" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="ATT"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="NumVer" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DateGen" type="xs:string"/>
+  <xs:element name="DateEnvoi" type="xs:string"/>
+  <xs:element name="IdEmetteur" type="xs:string"/>
+  <xs:element name="PeriodeEch">
+    <xs:complexType>
+      <xs:attribute name="deb" use="required"/>
+      <xs:attribute name="fin" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DateArrete" type="xs:string"/>
+  <xs:element name="LstDelegataires">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Delegataire"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Delegataire">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="LstReaContrats">
+          <xs:attribute name="id" use="required"/>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:complexType name="LstReaContrats">
+    <xs:sequence>
+      <xs:element ref="LstReaContrats"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LstReaContrats">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="ReaContrat"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReaContrat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Reassurance"/>
+        <xs:element ref="LstContrats"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Reassurance">
+    <xs:complexType>
+      <xs:attribute name="numTraite"/>
+      <xs:attribute name="avenCessionTraite"/>
+      <xs:attribute name="fluxPartCnp">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="O"/>
+            <xs:enumeration value="N"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstContrats">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Contrat"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Contrat">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="NumContractant"/>
+        <xs:element ref="Devise"/>
+        <xs:element ref="LstCollStatAssures"/>
+      </xs:sequence>
+      <xs:attribute name="idCnp" use="required"/>
+      <xs:attribute name="refExterne"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NumContractant" type="xs:string"/>
+  <xs:element name="Devise">
+    <xs:complexType>
+      <xs:attribute name="code" use="required"/>
+      <xs:attribute name="nbrDec" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstCollStatAssures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="CollStatAssure"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CollStatAssure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="CollectiviteStat"/>
+        <xs:element ref="LstAssures"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CollectiviteStat">
+    <xs:complexType>
+      <xs:attribute name="id"/>
+      <xs:attribute name="typeId"/>
+      <xs:attribute name="raisSociale"/>
+      <xs:attribute name="naf"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstAssures">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Assure"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Assure">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="Info"/>
+        <xs:element minOccurs="0" ref="SituationPro"/>
+        <xs:element minOccurs="0" ref="SituationFam"/>
+        <xs:element ref="LstAdhesions"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Info">
+    <xs:complexType>
+      <xs:attribute name="nomMarital"/>
+      <xs:attribute name="nomPatronym"/>
+      <xs:attribute name="prenom"/>
+	  <xs:attribute name="prenom2"/>
+	  <xs:attribute name="prenom3"/>
+      <xs:attribute name="codeSexe"/>
+      <xs:attribute name="dateNais"/>
+      <xs:attribute name="codeDeptRes"/>
+      <xs:attribute name="codePaysRes"/>
+      <xs:attribute name="codePostComRes"/>
+      <xs:attribute name="lieuDitAdrRes"/>
+      <xs:attribute name="appartRes"/>
+      <xs:attribute name="titreEtagePorteRes"/>
+      <xs:attribute name="numNomVoieRes"/>
+      <xs:attribute name="communeRes"/>
+      <xs:attribute name="telephoneAssu"/>
+      <xs:attribute name="mailAssu"/>
+      <xs:attribute name="villeNaisAssu"/>
+      <xs:attribute name="codePostComNaisAssu"/>
+      <xs:attribute name="codeComNaisINSEEAssu"/>
+	<xs:attribute name="codePaysNais"/>
+	<xs:attribute name="Nationalite"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SituationPro">
+    <xs:complexType>
+      <xs:attribute name="catProf"/>
+      <xs:attribute name="statut"/>
+      <xs:attribute name="catFonct"/>
+      <xs:attribute name="indiceTraitFonctPub"/>
+      <xs:attribute name="traitAnnIndiBrut"/>
+      <xs:attribute name="salAnnBrutImp"/>
+      <xs:attribute name="CspNiv3"/>
+      <xs:attribute name="SituProf"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SituationFam">
+    <xs:complexType>
+      <xs:attribute name="sitFam"/>
+      <xs:attribute name="nbrEnf"/>
+      <xs:attribute name="nbrEnfHand"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstAdhesions">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Adhesion"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Adhesion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="PeriodeAss"/>
+        <xs:element minOccurs="0" ref="PeriPaiPrimeAss"/>
+        <xs:element minOccurs="0" ref="DateDerEchPrimePayee"/>
+        <xs:element minOccurs="0" ref="DerMvt"/>
+        <xs:element minOccurs="0" ref="SomMvt"/>
+        <xs:element minOccurs="0" ref="CapGar"/>
+        <xs:element minOccurs="0" ref="Critere"/>
+        <xs:element minOccurs="0" ref="Sortie"/>
+        <xs:element minOccurs="0" ref="MntRenteGar"/>
+        <xs:element minOccurs="0" ref="CompltAdhesion"/>
+        <xs:element ref="LstBeneficiaires"/>
+        <xs:element minOccurs="0" ref="LstPrets"/>
+        <xs:element minOccurs="0" ref="LstPrimes"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PeriodeAss">
+    <xs:complexType>
+      <xs:attribute name="deb" use="required"/>
+      <xs:attribute name="fin"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PeriPaiPrimeAss" type="xs:string"/>
+  <xs:element name="DateDerEchPrimePayee" type="xs:string"/>
+  <xs:element name="DerMvt">
+    <xs:complexType>
+      <xs:attribute name="sgn"/>
+      <xs:attribute name="mnt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SomMvt">
+    <xs:complexType>
+      <xs:attribute name="sgn"/>
+      <xs:attribute name="prime"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CapGar">
+    <xs:complexType>
+      <xs:attribute name="base"/>
+      <xs:attribute name="reval"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Critere1"/>
+        <xs:element minOccurs="0" ref="Critere2"/>
+        <xs:element minOccurs="0" ref="Critere3"/>
+        <xs:element minOccurs="0" ref="Critere4"/>
+        <xs:element minOccurs="0" ref="Critere5"/>
+        <xs:element minOccurs="0" ref="Critere6"/>
+        <xs:element minOccurs="0" ref="Critere7"/>
+        <xs:element minOccurs="0" ref="Critere8"/>
+        <xs:element minOccurs="0" ref="Critere9"/>
+        <xs:element minOccurs="0" ref="Critere10"/>
+		<xs:element minOccurs="0" ref="Critere11"/>
+		<xs:element minOccurs="0" ref="Critere12"/>
+		<xs:element minOccurs="0" ref="Critere13"/>
+		<xs:element minOccurs="0" ref="Critere14"/>
+		<xs:element minOccurs="0" ref="Critere15"/>
+		<xs:element minOccurs="0" ref="Critere16"/>
+		<xs:element minOccurs="0" ref="Critere17"/>
+		<xs:element minOccurs="0" ref="Critere18"/>
+		<xs:element minOccurs="0" ref="Critere19"/>
+		<xs:element minOccurs="0" ref="Critere20"/>
+		<xs:element minOccurs="0" ref="Critere21"/>
+		<xs:element minOccurs="0" ref="Critere22"/>
+		<xs:element minOccurs="0" ref="Critere23"/>
+		<xs:element minOccurs="0" ref="Critere24"/>
+		<xs:element minOccurs="0" ref="Critere25"/>
+		<xs:element minOccurs="0" ref="Critere26"/>
+		<xs:element minOccurs="0" ref="Critere27"/>
+		<xs:element minOccurs="0" ref="Critere28"/>
+		<xs:element minOccurs="0" ref="Critere29"/>
+		<xs:element minOccurs="0" ref="Critere30"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere1">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere2">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere3">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere4">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere5">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere6">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere7">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere8">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere9">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere10">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere11">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere12">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere13">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere14">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere15">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere16">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere17">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere18">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere19">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere20">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+    <xs:element name="Critere21">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere22">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere23">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere24">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere25">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere26">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere27">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere28">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere29">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Critere30">
+    <xs:complexType>
+      <xs:attribute name="type"/>
+      <xs:attribute name="val"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Sortie">
+    <xs:complexType>
+      <xs:attribute name="motif"/>
+      <xs:attribute name="datesortie"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MntRenteGar" type="xs:string"/>
+  <xs:element name="CompltAdhesion">
+    <xs:complexType>
+        <xs:attribute name="DateSign"/>
+        <xs:attribute name="TopContrMed"/>
+        <xs:attribute name="dateModifEtatCompte"/>
+        <xs:attribute name="CdEtatCompte"/>
+        <xs:attribute name="IBAN"/>
+        <xs:attribute name="TopPayeurAss"/>
+        <xs:attribute name="NumIdentAgent"/>
+        <xs:attribute name="TopReducConjoint"/>
+        <xs:attribute name="TauxExo"/>
+		<xs:attribute name="CodeBIC"/>
+		<xs:attribute name="Prenom"/>
+		<xs:attribute name="Nom"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstBeneficiaires">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Beneficiaire"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Beneficiaire">
+    <xs:complexType>
+      <xs:attribute name="Ligne" use="required">
+        <xs:simpleType>
+          <xs:restriction base="xs:token">
+            <xs:enumeration value="BEN"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="id"/>
+      <xs:attribute name="nomMarital"/>
+      <xs:attribute name="nomPatronym"/>
+      <xs:attribute name="prenom"/>
+	  <xs:attribute name="prenom2"/>
+	  <xs:attribute name="prenom3"/>
+      <xs:attribute name="codeSexe"/>
+      <xs:attribute name="dateNais"/>
+      <xs:attribute name="lienAss"/>
+      <xs:attribute name="lieuDitAdrBen"/>
+      <xs:attribute name="resAppartBen"/>
+      <xs:attribute name="titreEtagePorteBen"/>
+      <xs:attribute name="numNomVoieBen"/>
+      <xs:attribute name="codePostComResBen"/>
+      <xs:attribute name="communeBen"/>
+      <xs:attribute name="codePaysResBen"/>
+      <xs:attribute name="telephoneBen"/>
+      <xs:attribute name="mailBen"/>
+      <xs:attribute name="villeNaisBen"/>
+      <xs:attribute name="codePostComNaisBen"/>
+      <xs:attribute name="codeComNaisINSEEBen"/>
+	  <xs:attribute name="codePaysNaisBen"/>
+	  <xs:attribute name="NationaliteBen"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstPrets">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Pret"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Pret">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" ref="Date"/>
+        <xs:element minOccurs="0" ref="Duree"/>
+        <xs:element minOccurs="0" ref="MntCapInit"/>
+        <xs:element minOccurs="0" ref="MntCRDAprDerEch"/>
+        <xs:element minOccurs="0" ref="NatEch"/>
+        <xs:element minOccurs="0" ref="DerTxInt"/>
+        <xs:element minOccurs="0" ref="DerEchHP"/>
+        <xs:element minOccurs="0" ref="DerRAPerFic"/>
+        <xs:element minOccurs="0" ref="Quotite"/>
+      </xs:sequence>
+      <xs:attribute name="id"/>
+      <xs:attribute name="type"/>
+      <xs:attribute name="nature"/>
+	  <xs:attribute name="idcnpnet"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Date">
+    <xs:complexType>
+      <xs:attribute name="accept"/>
+      <xs:attribute name="fin"/>
+	  <xs:attribute name="DateDeblocFond"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Duree">
+    <xs:complexType>
+      <xs:attribute name="totale"/>
+      <xs:attribute name="amort"/>
+      <xs:attribute name="differe"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MntCapInit" type="xs:string"/>
+  <xs:element name="MntCRDAprDerEch" type="xs:string"/>
+  <xs:element name="NatEch" type="xs:string"/>
+  <xs:element name="DerTxInt" type="xs:string"/>
+  <xs:element name="DerEchHP">
+    <xs:complexType>
+      <xs:attribute name="sgn"/>
+      <xs:attribute name="mnt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DerRAPerFic">
+    <xs:complexType>
+      <xs:attribute name="date"/>
+      <xs:attribute name="mnt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Quotite">
+    <xs:complexType>
+      <xs:attribute name="dc"/>
+      <xs:attribute name="it"/>
+      <xs:attribute name="perteEmploi"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="LstPrimes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="Prime"/>
+      </xs:sequence>
+      <xs:attribute name="nbr" use="required"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Prime">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="DerMvtPrim"/>
+        <xs:element ref="MvtPrim"/>
+        <xs:element ref="Garantie"/>
+      </xs:sequence>
+      <xs:attribute name="codeGrdRisq"/>
+      <xs:attribute name="codePop"/>
+      <xs:attribute name="codeRisqPrim"/>
+      <xs:attribute name="mntAssiette"/>
+      <xs:attribute name="txAppPrime"/>
+      <xs:attribute name="typeAssiette"/>
+      <xs:attribute name="codeNatVerst"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DerMvtPrim">
+    <xs:complexType>
+      <xs:attribute name="Mnt"/>
+      <xs:attribute name="sgnMnt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="MvtPrim">
+    <xs:complexType>
+      <xs:attribute name="SomMnt"/>
+      <xs:attribute name="sgnSomMnt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="Garantie">
+    <xs:complexType>
+        <xs:attribute name="dateEffetGart"/>
+        <xs:attribute name="mntGartVigueur"/>
+        <xs:attribute name="CapGartVigueur"/>
+        <xs:attribute name="codeTypeGart"/>
+        <xs:attribute name="mntGartOrig"/>
+        <xs:attribute name="LibelleGart"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
