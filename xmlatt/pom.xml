@@ -25,17 +25,8 @@
 							<goal>generate</goal>
 						</goals>
 					</execution>
-				</executions>
-
-				<configuration>
-					<schemaDirectory>${project.basedir}/src/main/xsd</schemaDirectory>
-					<schemaIncludes>
-						<include>att6.xsd</include>
-					</schemaIncludes>					
-					<generateDirectory>${project.basedir}/src/generated</generateDirectory>
-				</configuration>
+				</executions>				
 			</plugin>
-
 		</plugins>
 	</build>
 </project>
